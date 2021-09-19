@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<button onclick="insertUser()">建立會員</button>
+<button onclick="getUserByPK()">查詢單筆</button>
+<button onclick="getUserList()">查詢全部</button>
+<button onclick="updateUser()">更新會員</button>
+<button onclick="deleteUser()">刪除會員</button>
+
+<script>
+
+    var insertData = {
+        UserName: "Leo",
+    };
+    function insertUser() {
+        $.ajax({
+            method: "POST",
+            url: '/api/MyAPI/InsertUserBasic',
+            cache: false,
+            contentType: 'application/json',
+            data: JSON.stringify(insertData),
+        }).done(function (data) {
+            console.log("result...", data);
+        });
+    };
+
+    var qryUserPK = 500;
+    function getUserByPK() {
+        $.ajax({
+            method: "GET",
+            url: '/api/MyAPI/QryAsyncUserBasic/' + qryUserPK,
+            cache: false,
+        }).done(function (data) {
+            console.log("result...", data);
+        });
+    };
+
+    function getUserList() {
+        $.ajax({
+            method: "GET",
+            url: '/api/MyAPI/QryAsyncUserBasicList',
+            cache: false,
+            data: { _userPK: 20 },
+            beforeSend: function (xhr) {
+                if ($window.sessionStorage.token) {
+                    xhr.setRequestHeader("Authorization", "Bearer " + $window.sessionStorage.token);
+                } else {
+                    xhr.setRequestHeader("Authorization", "Bearer " + "null");
+                };
+            },
+        }).done(function (data) {
+            console.log("result...", data);
+        });
+    };
+
+    var updateData = {
+        UserPK: 10003,
+        UserName: 'Amy',
+        UserEngName: 'AmyWang',
+    };
+    function updateUser() {
+        $.ajax({
+            method: "PUT",
+            url: '/api/MyAPI/UpdateUserBasic',
+            cache: false,
+            contentType: 'application/json',
+            data: JSON.stringify(updateData),
+        }).done(function (data) {
+            console.log("result...", data);
+        });
+    };
+
+    var deleteUserPK = 6;
+    var _isEntity = true;
+    function deleteUser() {
+        $.ajax({
+            method: "DELETE",
+            url: '/api/MyAPI/DeleteUserBasic/' + deleteUserPK,
+            cache: false,
+            contentType: 'application/json',
+            data: JSON.stringify(_isEntity),
+        }).done(function (data) {
+            console.log("result...", data);
+        });
+    };
+</script>

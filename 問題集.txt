@@ -1,0 +1,3 @@
+1.controller 結尾名字不能使用Async 否則會抓不到?
+2.使用C# 類別庫無法在StartUp做註冊會無法using?
+3.單表不開交易的正確性?
