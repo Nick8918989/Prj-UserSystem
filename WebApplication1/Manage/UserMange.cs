@@ -74,7 +74,7 @@ namespace WebApplication1.Manage
             }
         }
 
-        public async Task<ReturnResult> UpdateUserBasicAsync(UserBasic _userBasic)
+        public async Task<ReturnResult> UpdateUserBasicAsync(string _appFunction, string _appIp, UserBasic _userBasic, bool _begin_transaction = true)
         {
             ReturnResult result = new ReturnResult();
             using (IDbContextTransaction transaction = _Context.Database.BeginTransaction())

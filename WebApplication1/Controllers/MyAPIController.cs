@@ -9,8 +9,6 @@ using WebApplication1.Models;
 using WebApplication1.Models.Entity;
 using WebApplication1.Utilities;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace WebApplication1.Controllers
 {
     [Route("api/[controller]")]
@@ -53,8 +51,9 @@ namespace WebApplication1.Controllers
         [HttpPut("[action]")]
         public async Task<IActionResult> UpdateUserBasic([FromBody] UserBasic _updateUser)
         {
+            string fnName = ViewUtility.GetFunctionName(ControllerContext), ip = NetUtility.GetServerIPAddress();
             ReturnResult returnData = new ReturnResult();
-            returnData = await _User_Mange.UpdateUserBasicAsync(_updateUser);
+            returnData = await _User_Mange.UpdateUserBasicAsync(fnName, ip, _updateUser);
             return Content(returnData.ToJson(), "application/json");
         }
 
