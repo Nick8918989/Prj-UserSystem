@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hHdsIP+P7r8g3C4boLwTPmRYir0tCebfMhkwvRnoKo30SnQv/zXOabVq+mohTLn42DTtPXzehv/KZMuIYeL3Kw==",
+  "dgSpecHash": "NvG7R6YtKJraEBIqHLHeF6ftHj1OYMwW816r64CU4etZuSmZQhynRJ+LOfz0s1Ug23lKPMxR9OuQNss00eY20A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nick\\Desktop\\test\\WebApplication1\\WebApplication1.csproj",
+  "projectFilePath": "C:\\Users\\Nick\\Desktop\\PrjUserSystem\\WebApplication1\\WebApplication1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nick\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

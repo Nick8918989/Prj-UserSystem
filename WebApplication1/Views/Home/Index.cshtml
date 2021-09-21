@@ -47,13 +47,6 @@
             url: '/api/MyAPI/QryAsyncUserBasicList',
             cache: false,
             data: { _userPK: 20 },
-            beforeSend: function (xhr) {
-                if ($window.sessionStorage.token) {
-                    xhr.setRequestHeader("Authorization", "Bearer " + $window.sessionStorage.token);
-                } else {
-                    xhr.setRequestHeader("Authorization", "Bearer " + "null");
-                };
-            },
         }).done(function (data) {
             console.log("result...", data);
         });

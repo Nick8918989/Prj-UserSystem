@@ -105,6 +105,11 @@ namespace WebApplication1.Manage
                         result.ResultStatus = ResultStatus.Success;
                         result.Message = "編輯成功！！";
                     }
+                    else
+                    {
+                        result.ResultStatus = ResultStatus.Error;
+                        result.Message = "編輯資料錯誤-未找到相關人員";
+                    }
                     return result;
                 }
                 catch (Exception ex)
