@@ -116,6 +116,9 @@ C:\Users\Nick\Desktop\PrjUserSystem\WebApplication1\bin\Debug\netcoreapp3.1\Micr
 C:\Users\Nick\Desktop\PrjUserSystem\WebApplication1\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Nick\Desktop\PrjUserSystem\WebApplication1\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
 C:\Users\Nick\Desktop\PrjUserSystem\WebApplication1\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Nick\Desktop\PrjUserSystem\WebApplication1\bin\Debug\netcoreapp3.1\NLog.dll
+C:\Users\Nick\Desktop\PrjUserSystem\WebApplication1\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+C:\Users\Nick\Desktop\PrjUserSystem\WebApplication1\bin\Debug\netcoreapp3.1\NLog.Web.AspNetCore.dll
 C:\Users\Nick\Desktop\PrjUserSystem\WebApplication1\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Nick\Desktop\PrjUserSystem\WebApplication1\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Nick\Desktop\PrjUserSystem\WebApplication1\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
