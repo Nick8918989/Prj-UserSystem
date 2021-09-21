@@ -1,0 +1,14 @@
+﻿create table UserBasic (
+   UserPK               bigint               identity,
+   UserName             nvarchar(120)        not null,
+   UserEngName          varchar(150)         null,
+   UserJobTitle	        nvarchar(100)        null,
+   CreateDate           datetime             not null,
+   ModifyDate           datetime             null,
+   CreateUserPK         bigint               not null,
+   ModifyUserPK         bigint               null,
+   DataStatus           int                  not null,
+   constraint PK_USERBASIC primary key (UserPK)
+)
+
+go
