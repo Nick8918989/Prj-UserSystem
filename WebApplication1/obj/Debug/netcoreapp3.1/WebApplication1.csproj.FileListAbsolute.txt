@@ -169,3 +169,4 @@ C:\Users\Nick\Desktop\PrjUserSystem\WebApplication1\obj\Debug\netcoreapp3.1\WebA
 C:\Users\Nick\Desktop\PrjUserSystem\WebApplication1\obj\Debug\netcoreapp3.1\WebApplication1.pdb
 C:\Users\Nick\Desktop\PrjUserSystem\WebApplication1\obj\Debug\netcoreapp3.1\WebApplication1.genruntimeconfig.cache
 C:\Users\Nick\Desktop\PrjUserSystem\WebApplication1\obj\Debug\netcoreapp3.1\WebApplication1.csprojAssemblyReference.cache
+C:\Users\Nick\Desktop\PrjUserSystem\WebApplication1\bin\Debug\netcoreapp3.1\nlog.config

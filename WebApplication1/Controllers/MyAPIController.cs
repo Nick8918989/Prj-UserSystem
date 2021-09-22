@@ -22,6 +22,7 @@ namespace WebApplication1.Controllers
         public MyAPIController(ILogger<MyAPIController> logger, PortfolioContext context, UserMange user_manager)
         {
             _logger = logger;
+            _logger.LogDebug("1.Nog...in controller");
             _context = context;
             _User_Mange = user_manager;
         }
@@ -29,6 +30,7 @@ namespace WebApplication1.Controllers
         [HttpGet("[action]/{_userPK}")]
         public async Task<IActionResult> QryAsyncUserBasic(int _userPK)
         {
+            _logger.LogInformation("Index page says hello");
             var data = await _User_Mange.QryUserBasicAsyncByPK(_userPK);
             return Content(data.ToJson(), "application/json");
         }
