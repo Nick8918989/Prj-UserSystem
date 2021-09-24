@@ -28,7 +28,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet("[action]/{_userPK}")]
-        public async Task<IActionResult> QryAsyncUserBasic(int _userPK)
+        public async Task<IActionResult> QryAsyncUserBasic(long _userPK)
         {
             _logger.LogInformation("Index page says hello");
             var data = await _User_Mange.QryUserBasicAsyncByPK(_userPK);
@@ -36,7 +36,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> QryAsyncUserBasicList([FromQuery] int _userPK)
+        public async Task<IActionResult> QryAsyncUserBasicList([FromQuery] long _userPK)
         {
             var data = await _User_Mange.QryUserBasicListAsync();
             return Content(data.ToJson(), "application/json");
@@ -59,11 +59,11 @@ namespace WebApplication1.Controllers
             return Content(returnData.ToJson(), "application/json");
         }
 
-        [HttpDelete("[action]/{_deleteUserID}")]
-        public async Task<IActionResult> DeleteUserBasic(int _deleteUserID, [FromBody] bool _isEntity)
+        [HttpDelete("[action]/{_userPK}")]
+        public async Task<IActionResult> DeleteUserBasic(long _userPK, [FromBody] bool _isEntity)
         {
             ReturnResult returnData = new ReturnResult();
-            returnData = await _User_Mange.DeleteUserBasicAsync(_deleteUserID, _isEntity: _isEntity);
+            returnData = await _User_Mange.DeleteUserBasicAsync(_userPK, _isEntity: _isEntity);
             return Content(returnData.ToJson(), "application/json");
         }
     }

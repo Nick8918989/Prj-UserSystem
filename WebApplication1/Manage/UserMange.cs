@@ -97,6 +97,7 @@ namespace WebApplication1.Manage
                         user.UserJobTitle = _userBasic.UserJobTitle;
                         user.ModifyDate = DateTime.Now;
                         user.ModifyUserPK = 0;
+
                         _Context.UserBasic.Update(user);
                         await _Context.SaveChangesAsync();
                         transaction.Commit();
@@ -107,6 +108,7 @@ namespace WebApplication1.Manage
                     }
                     else
                     {
+                        result.ID = user.UserPK;
                         result.ResultStatus = ResultStatus.Error;
                         result.Message = "編輯資料錯誤-未找到相關人員";
                     }
@@ -155,7 +157,9 @@ namespace WebApplication1.Manage
                     }
                     else
                     {
-                        throw new Exception("刪除資料錯誤-未找到該人員");
+                        result.ID = _userPK;
+                        result.ResultStatus = ResultStatus.Error;
+                        result.Message = "未找到該人員！！";
                     }
                     return result;
                 }
