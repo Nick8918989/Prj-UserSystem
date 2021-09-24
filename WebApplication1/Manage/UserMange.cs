@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace WebApplication1.Manage
     public class UserMange
     {
         private readonly PortfolioContext _Context;
+        private readonly ILogger<UserMange> _Logger;
 
-        public UserMange(PortfolioContext _context)
+        public UserMange(PortfolioContext _context, ILogger<UserMange> _logger)
         {
             _Context = _context;
+            _Logger = _logger;
         }
 
         public IQueryable<UserBasic> QryUserBasic()
@@ -69,6 +72,7 @@ namespace WebApplication1.Manage
                     transaction.Rollback();
                     result.ResultStatus = ResultStatus.Failure;
                     result.Message = ex.Message;
+                    _Logger.LogError(ex.Message);
                     return result;
                 }
             }

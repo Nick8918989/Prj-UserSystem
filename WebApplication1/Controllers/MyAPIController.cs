@@ -17,20 +17,19 @@ namespace WebApplication1.Controllers
     {
         private readonly PortfolioContext _context;
         private readonly UserMange _User_Mange;
-        private readonly ILogger<MyAPIController> _logger;
+        private readonly ILogger<string> _logger;
 
-        public MyAPIController(ILogger<MyAPIController> logger, PortfolioContext context, UserMange user_manager)
+        public MyAPIController(ILogger<string> logger, PortfolioContext context, UserMange user_manager)
         {
-            _logger = logger;
-            _logger.LogDebug("1.Nog...in controller");
+            _logger = logger; 
             _context = context;
             _User_Mange = user_manager;
+            //_logger.LogDebug("1.Nog...in controller");
         }
 
         [HttpGet("[action]/{_userPK}")]
         public async Task<IActionResult> QryAsyncUserBasic(long _userPK)
         {
-            _logger.LogInformation("Index page says hello");
             var data = await _User_Mange.QryUserBasicAsyncByPK(_userPK);
             return Content(data.ToJson(), "application/json");
         }

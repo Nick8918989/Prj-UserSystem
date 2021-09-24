@@ -5,11 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication1.Manage;
 using WebApplication1.Models;
 
 namespace WebApplication1
@@ -35,7 +37,7 @@ namespace WebApplication1
             }, 256);
 
             //ª`¤J¡Aµù¥UManage¡C
-            services.AddScoped(i => new Manage.UserMange((Models.PortfolioContext)i.GetService(typeof(Models.PortfolioContext))));
+            services.AddScoped(i => new Manage.UserMange((PortfolioContext)i.GetService(typeof(PortfolioContext)), (ILogger<UserMange>)i.GetService(typeof(ILogger<UserMange>))));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,7 +72,6 @@ namespace WebApplication1
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    //pattern: "{controller=Home}/{action=Index}/{id?}");
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
