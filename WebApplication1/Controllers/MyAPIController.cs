@@ -30,22 +30,23 @@ namespace WebApplication1.Controllers
         [HttpGet("[action]/{_userPK}")]
         public async Task<IActionResult> QryAsyncUserBasic(long _userPK)
         {
-            var data = await _User_Mange.QryUserBasicAsyncByPK(_userPK);
+            var data = await _User_Mange.QryAsyncByPK(_userPK);
             return Content(data.ToJson(), "application/json");
         }
 
         [HttpGet("[action]")]
         public async Task<IActionResult> QryAsyncUserBasicList([FromQuery] long _userPK)
         {
-            var data = await _User_Mange.QryUserBasicListAsync();
+            var data = await _User_Mange.QryListAsync();
             return Content(data.ToJson(), "application/json");
         }
 
         [HttpPost("[action]")]
         public async Task<IActionResult> InsertUserBasic([FromBody] UserBasic _userBasic)
         {
+            string fnName = ViewUtility.GetFunctionName(ControllerContext), ip = NetUtility.GetServerIPAddress();
             ReturnResult returnData = new ReturnResult();
-            returnData = await _User_Mange.InsertUserBasicAsync(_userBasic);
+            returnData = await _User_Mange.InsertAsync(_userBasic);
             return Content(returnData.ToJson(), "application/json");
         }
 
@@ -54,15 +55,16 @@ namespace WebApplication1.Controllers
         {
             string fnName = ViewUtility.GetFunctionName(ControllerContext), ip = NetUtility.GetServerIPAddress();
             ReturnResult returnData = new ReturnResult();
-            returnData = await _User_Mange.UpdateUserBasicAsync(fnName, ip, _updateUser);
+            returnData = await _User_Mange.UpdateAsync(_updateUser);
             return Content(returnData.ToJson(), "application/json");
         }
 
         [HttpDelete("[action]/{_userPK}")]
         public async Task<IActionResult> DeleteUserBasic(long _userPK, [FromBody] bool _isEntity)
         {
+            string fnName = ViewUtility.GetFunctionName(ControllerContext), ip = NetUtility.GetServerIPAddress();
             ReturnResult returnData = new ReturnResult();
-            returnData = await _User_Mange.DeleteUserBasicAsync(_userPK, _isEntity: _isEntity);
+            returnData = await _User_Mange.DeleteAsync(_userPK, _isEntity: _isEntity);
             return Content(returnData.ToJson(), "application/json");
         }
     }

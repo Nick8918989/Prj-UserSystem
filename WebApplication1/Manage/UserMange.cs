@@ -4,14 +4,16 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using WebApplication1.Models;
 using WebApplication1.Models.Entity;
+using WebApplication1.Utilities;
 using static WebApplication1.Models.Enum.EnumType;
 
 namespace WebApplication1.Manage
 {
-    public class UserMange
+    public class UserMange : IBaseManage<UserBasic>
     {
         private readonly PortfolioContext _Context;
         private readonly ILogger<UserMange> _Logger;
@@ -22,17 +24,17 @@ namespace WebApplication1.Manage
             _Logger = _logger;
         }
 
-        public IQueryable<UserBasic> QryUserBasic()
+        public IQueryable<UserBasic> Qry()
         {
             return _Context.UserBasic.AsQueryable();
         }
 
-        public async Task<UserBasic> QryUserBasicAsyncByPK(long _userPK)
+        public async Task<UserBasic> QryAsyncByPK(long _userPK)
         {
             return await _Context.UserBasic.FirstOrDefaultAsync(x => x.UserPK == _userPK);
         }
 
-        public async Task<IQueryable<UserBasic>> QryUserBasicListAsync()
+        public async Task<IQueryable<UserBasic>> QryListAsync()
         {
             //非同步要記得加這段 關鍵字原本ToList直接改為Async的關鍵字
             var data = await _Context.UserBasic.ToListAsync();
@@ -45,7 +47,7 @@ namespace WebApplication1.Manage
             return data.AsQueryable();
         }
 
-        public async Task<ReturnResult> InsertUserBasicAsync(UserBasic _userBasic)
+        public async Task<ReturnResult> InsertAsync(UserBasic _userBasic, bool _begin_transaction = true)
         {
             ReturnResult result = new ReturnResult();
             using (IDbContextTransaction transaction = _Context.Database.BeginTransaction())
@@ -72,13 +74,13 @@ namespace WebApplication1.Manage
                     transaction.Rollback();
                     result.ResultStatus = ResultStatus.Failure;
                     result.Message = ex.Message;
-                    _Logger.LogError(ex.Message);
+                    _Logger.LogError(ex.Message + "=>" + _userBasic.ToJson());
                     return result;
                 }
             }
         }
 
-        public async Task<ReturnResult> UpdateUserBasicAsync(string _appFunction, string _appIp, UserBasic _userBasic, bool _begin_transaction = true)
+        public async Task<ReturnResult> UpdateAsync(UserBasic _userBasic, bool _begin_transaction = true)
         {
             ReturnResult result = new ReturnResult();
             using (IDbContextTransaction transaction = _Context.Database.BeginTransaction())
@@ -93,7 +95,7 @@ namespace WebApplication1.Manage
                     {
                         throw new Exception("更新資料錯誤-未填寫姓名");
                     }
-                    UserBasic user = await QryUserBasicAsyncByPK(_userBasic.UserPK);
+                    UserBasic user = await QryAsyncByPK(_userBasic.UserPK);
                     if(user != null)
                     {
                         user.UserName = _userBasic.UserName;
@@ -123,13 +125,13 @@ namespace WebApplication1.Manage
                     transaction.Rollback();
                     result.ResultStatus = ResultStatus.Failure;
                     result.Message = ex.Message;
-                    _Logger.LogError(ex.Message);
+                    _Logger.LogError(ex.Message + "=>" + _userBasic.ToJson());
                     return result;
                 }
             }
         }
 
-        public async Task<ReturnResult> DeleteUserBasicAsync(long _userPK, bool _isEntity = false)
+        public async Task<ReturnResult> DeleteAsync(long _userPK, bool _isEntity = false)
         {
             ReturnResult result = new ReturnResult();
             using (IDbContextTransaction transaction = _Context.Database.BeginTransaction())
@@ -140,7 +142,7 @@ namespace WebApplication1.Manage
                     {
                         throw new Exception("刪除資料錯誤-未帶入UserPK");
                     }
-                    UserBasic user = QryUserBasicAsyncByPK(_userPK).Result;
+                    UserBasic user = QryAsyncByPK(_userPK).Result;
                     if (user != null)
                     {
                         if (_isEntity)
@@ -173,7 +175,7 @@ namespace WebApplication1.Manage
                     transaction.Rollback();
                     result.ResultStatus = ResultStatus.Failure;
                     result.Message = ex.Message;
-                    _Logger.LogError(ex.Message);
+                    _Logger.LogError(ex.Message + "=>" + _userPK.ToJson());
                     return result;
                 }
             }

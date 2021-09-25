@@ -7,79 +7,102 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-<button onclick="insertUser()">建立會員</button>
-<button onclick="getUserByPK()">查詢單筆</button>
-<button onclick="getUserList()">查詢全部</button>
-<button onclick="updateUser()">更新會員</button>
-<button onclick="deleteUser()">刪除會員</button>
+<div class="input-group mb-3">
+    <input type="text" class="form-control" id="insertUserName" placeholder="請填寫姓名">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" onclick="UserJS.InsertUser()">新增</button>
+    </div>
+</div>
+
+<div class="input-group mb-3">
+    <input type="text" class="form-control" id="searchUserPK" placeholder="使用UserPK做查詢">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" onclick="UserJS.GetUserByPK()">查詢</button>
+    </div>
+</div>
+<div id="resultDiv"></div>
+
+<button class="btn btn-outline-secondary" type="button" onclick="UserJS.GetUserList()">查詢全部</button>
+<button class="btn btn-outline-secondary" type="button" onclick="UserJS.UpdateUser()">更新會員</button>
+<button class="btn btn-outline-secondary" type="button" onclick="UserJS.DeleteUser()">刪除會員</button>
 
 <script>
-
-    var insertData = {
-        UserName: "Leo",
-    };
-    function insertUser() {
-        $.ajax({
-            method: "POST",
-            url: '/api/MyAPI/InsertUserBasic',
-            cache: false,
-            contentType: 'application/json',
-            data: JSON.stringify(insertData),
-        }).done(function (data) {
-            console.log("result...", data);
-        });
-    };
-
-    var qryUserPK = 500;
-    function getUserByPK() {
-        $.ajax({
-            method: "GET",
-            url: '/api/MyAPI/QryAsyncUserBasic/' + qryUserPK,
-            cache: false,
-        }).done(function (data) {
-            console.log("result...", data);
-        });
-    };
-
-    function getUserList() {
-        $.ajax({
-            method: "GET",
-            url: '/api/MyAPI/QryAsyncUserBasicList',
-            cache: false,
-            data: { _userPK: 20 },
-        }).done(function (data) {
-            console.log("result...", data);
-        });
-    };
-
-    var updateData = {
-        UserPK: 10003,
-        UserName: 'Amy',
-        UserEngName: 'AmyWang',
-    };
-    function updateUser() {
-        $.ajax({
-            method: "PUT",
-            url: '/api/MyAPI/UpdateUserBasic',
-            cache: false,
-            contentType: 'application/json',
-            data: JSON.stringify(updateData),
-        }).done(function (data) {
-            console.log("result...", data);
-        });
-    };
-
-    var deleteUserPK = 6;
-    var _isEntity = true;
-    function deleteUser() {
-        $.ajax({
-            method: "DELETE",
-            url: '/api/MyAPI/DeleteUserBasic/' + deleteUserPK,
-            cache: false,
-            contentType: 'application/json',
-            data: JSON.stringify(_isEntity),
-        }).done(function (data) {
-            console.log("result...", data);
-        });
-    };
+    //Todo Ajax 應該分Get or Post至底層Js避免過多重複寫法
+    var UserJS = (function () {
+        return {
+            InsertUser: function () {
+                if (!$("#insertUserName").val()) {
+                    alert("請填寫姓名！！");
+                };
+                var insertData = {
+                    UserName: $("#insertUserName").val(),
+                };
+                $.ajax({
+                    method: "POST",
+                    url: '/api/MyAPI/InsertUserBasic',
+                    cache: false,
+                    contentType: 'application/json',
+                    data: JSON.stringify(insertData),
+                }).done(function (data) {
+                    //Todo這邊應該有更好的寫法 並非直接判斷ResultStatus == 1
+                    if (data.ResultStatus == 1) {
+                        alert("新增成功");
+                    };
+                });
+            },
+            GetUserByPK: function () {
+                $("#resultDiv").text("");
+                var qryUserPK = $("#searchUserPK").val();
+                if (qryUserPK) {
+                    $.ajax({
+                        method: "GET",
+                        url: '/api/MyAPI/QryAsyncUserBasic/' + qryUserPK,
+                        cache: false,
+                    }).done(function (data) {
+                        $("#resultDiv").text(data.UserName);
+                    });
+                };
+            },
+            GetUserList: function () {
+                $.ajax({
+                    method: "GET",
+                    url: '/api/MyAPI/QryAsyncUserBasicList',
+                    cache: false,
+                    data: { _userPK: 20 },
+                }).done(function (data) {
+                    console.log("result...", data);
+                });
+            },
+            UpdateUser: function () {
+                var updateData = {
+                    UserPK: 10003,
+                    UserName: 'Amy',
+                    UserEngName: 'AmyWang',
+                };
+                $.ajax({
+                    method: "PUT",
+                    url: '/api/MyAPI/UpdateUserBasic',
+                    cache: false,
+                    contentType: 'application/json',
+                    data: JSON.stringify(updateData),
+                }).done(function (data) {
+                    console.log("result...", data);
+                });
+            },
+            DeleteUser: function () {
+                var deleteUserPK = 6;
+                var _isEntity = true;
+                $.ajax({
+                    method: "DELETE",
+                    url: '/api/MyAPI/DeleteUserBasic/' + deleteUserPK,
+                    cache: false,
+                    contentType: 'application/json',
+                    data: JSON.stringify(_isEntity),
+                }).done(function (data) {
+                    console.log("result...", data);
+                });
+            },
+        }
+    })();
+    UserJS.GetUserList();
 </script>
