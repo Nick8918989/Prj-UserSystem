@@ -10,14 +10,14 @@ namespace WebApplication1.Manage
     {
         IQueryable<T> Qry();
 
-        Task<T> QryAsyncByPK(long PK);
+        Task<T> QryAsyncByPK(long pk);
 
-        Task<IQueryable<T>> QryListAsync();
+        Task<List<T>> QryListAsync();
 
-        Task<ReturnResult> InsertAsync(T Data, bool isTran);
+        Task<ReturnResult> InsertAsync(T data, bool isTran);
 
-        Task<ReturnResult> UpdateAsync(T Data, bool isTran);
+        Task<ReturnResult> UpdateAsync(T data, bool isTran);
 
-        Task<ReturnResult> DeleteAsync(long PK, bool isEntity);
+        Task<ReturnResult> DeleteAsync(long pk, bool isEntity);
     }
 }

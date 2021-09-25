@@ -1,5 +1,7 @@
 1.controller 結尾名字不能使用Async 否則會抓不到?
-2.使用C# 類別庫無法在StartUp做註冊會無法using?
-3.如只有做單張資料表做新增修改不開交易的正確性?
-4.Startup 的 ConfigureServices 與 Configure 的差異?
-5.QryUserBasicListAsync 目前測試只能分兩段寫不能融合在一段??
+2.如只有做單張資料表做新增修改不開交易是否為正確的?
+3.Startup 的 ConfigureServices 與 Configure 的差異?
+4.    await _Context.SaveChangesAsync();
+       await transaction.CommitAsync();
+如果在底層有宣告Async的方法裡面有兩個await會比較來的快嗎?
+還是效能都一樣?

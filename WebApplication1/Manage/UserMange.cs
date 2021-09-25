@@ -34,17 +34,9 @@ namespace WebApplication1.Manage
             return await _Context.UserBasic.FirstOrDefaultAsync(x => x.UserPK == _userPK);
         }
 
-        public async Task<IQueryable<UserBasic>> QryListAsync()
+        public async Task<List<UserBasic>> QryListAsync()
         {
-            //非同步要記得加這段 關鍵字原本ToList直接改為Async的關鍵字
-            var data = await _Context.UserBasic.ToListAsync();
-
-            //List-1版
-            //var DATA2 = await Task.FromResult<List<UserBasic>>(QUERY.ToList());
-
-            //List-2版
-            //var DATA2 = await Task.FromResult(QUERY).Result.FirstOrDefaultAsync();
-            return data.AsQueryable();
+            return await _Context.UserBasic.ToListAsync();
         }
 
         public async Task<ReturnResult> InsertAsync(UserBasic _userBasic, bool _begin_transaction = true)
