@@ -15,5 +15,15 @@ namespace WebApplication1.Models
         }
 
         public DbSet<UserBasic> UserBasic { get; set; }
+
+        public DbSet<UserAccount> UserAccount { get; set; }
+
+        public DbSet<UserRole> UserRole { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder _builder)
+        {
+            //複合鍵在這裡註冊
+
+        }
     }
 }

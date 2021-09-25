@@ -17,6 +17,54 @@ create table UserBasic (
 go
 
 /*==============================================================*/
+/*                    Table: UserAccount資料表                  */
+/*==============================================================*/
+create table UserAccount (
+   UserAccountPK        bigint               identity,
+   UserPK               bigint               not null,
+   AccountID            varchar(50)          not null,
+   AccountPWD           varchar(50)          not null,
+   CreateDate           datetime             not null,
+   ModifyDate           datetime             null,
+   CreateUserPK         bigint               not null,
+   ModifyUserPK         bigint               null,
+   DataStatus           int                  not null,
+   constraint PK_USERACCOUNT primary key (UserAccountPK),
+   constraint PK_AccountID unique(AccountID)
+)
+
+alter table UserAccount
+   add constraint FK_USERACCOUNT_USERBASIC foreign key (UserPK)
+      references UserBasic (UserPK)
+go
+
+/*==============================================================*/
+/*                    Table: UserRole資料表                    */
+/*==============================================================*/
+create table UserRole (
+   UserRolePK           bigint               identity,
+   UserPK               bigint               not null,
+   UserAccountPK        bigint               not null,
+   AccountRole          bigint               not null,
+   CreateDate           datetime             not null,
+   ModifyDate           datetime             null,
+   CreateUserPK         bigint               not null,
+   ModifyUserPK         bigint               null,
+   DataStatus           int                  not null,
+   constraint PK_USERROLE primary key (UserRolePK)
+)
+
+alter table UserRole
+   add constraint FK_USERROLE_USERBASIC foreign key (UserPK)
+      references UserBasic (UserPK)
+go
+
+alter table UserRole
+   add constraint FK_USERROLE_USERACCOUNT foreign key (UserAccountPK)
+      references UserAccount (UserAccountPK)
+go
+
+/*==============================================================*/
 /*                    Table: Nlog資料表                         */
 /*==============================================================*/
 
