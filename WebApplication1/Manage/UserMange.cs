@@ -123,6 +123,7 @@ namespace WebApplication1.Manage
                     transaction.Rollback();
                     result.ResultStatus = ResultStatus.Failure;
                     result.Message = ex.Message;
+                    _Logger.LogError(ex.Message);
                     return result;
                 }
             }
@@ -172,6 +173,7 @@ namespace WebApplication1.Manage
                     transaction.Rollback();
                     result.ResultStatus = ResultStatus.Failure;
                     result.Message = ex.Message;
+                    _Logger.LogError(ex.Message);
                     return result;
                 }
             }
